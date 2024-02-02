@@ -1,0 +1,64 @@
+Assignment: A2 - The Pancake Problem
+Author: Vivian Lau (vlau02)
+Date: 10.16.2023
+-----------------------------------------------------------------------------------
+How to Run:
+-----------------------------------------------------------------------------------
+    python3 main.py
+(Note) needs user input for each pancake size and requires user to enter "done"
+    when they are done entering
+(Another Note) the command runs both A* and (when reasonable) Uniform Cost Search
+
+-----------------------------------------------------------------------------------
+Assumptions:
+-----------------------------------------------------------------------------------
+    Pancake Stack is ordered from the 0th index being the largest pancake to the
+    nth index being the smallest pancake
+    ............................................................................... 
+    Pancake Stacks can be any length
+    ............................................................................... 
+    Pancake Stack should not be non-sequential or with duplicate pancake sizes.
+    (Program will still handle these edge cases, but will not find a solution.)
+    ............................................................................... 
+    Using the printPath() function in the searching algorithm classes is assumed
+    to take place after running the search() function to find a solution.
+    ............................................................................... 
+    User will enter all the sizes of the pancakes one by one.
+    ............................................................................... 
+    Uniform Cost Search takes >600 seconds with pancake stacks of size 8 and more
+    and thus is determined to be unreasonable to run.
+
+-----------------------------------------------------------------------------------
+Files:
+-----------------------------------------------------------------------------------
+        PancakeStack.py - Represents the state of pancake stack
+    ............................................................................... 
+        PriorityQueue.py - Uses Python built-in heapq to implement a priority queue
+                that prioritizes the cost to get to each state of pancake stack
+    ...............................................................................
+        A_Star_Search_Alg.py - A* search algorithm for finding most optimal way to
+                flip a pancake stack into one with its pancakes ordered by size
+    ...............................................................................
+        Uniform_Cost_Search_Alg.py - Uniform Cost search algorithm for finding the 
+                most optimal way to flip a pancake stack into one with its pancakes
+                ordered by size
+            (Note) Also includes a wrapper function on the PancakeStack class
+    ...............................................................................
+        main.py - Prompts the user for a pancake stack and runs the A* search
+                algorithm and the Uniform Cost search algorithm (if under 
+                reasonable time - pancake stack less than 8)
+
+-----------------------------------------------------------------------------------
+Solution Structure:
+
+Both the A* and Uniform Cost search algorithms stores the potential states of
+pancake stacks after flipping to be visited in a priority queue that is implemented
+with the python built-in heap queue. This means that there can be multiple versions
+of a given state that is achieved through different flips. Each of these versions
+are added to the priority queue prioritizing their cost before the order they were
+added in. The cost of the A* search is summing the forward cost of using gap
+heuristic function (number of pancakes that differ by more than one size to their
+adjacent pancakes and the plate) with the backward cost of the number of flips
+performed on the stack to reach the current stack. The uniform cost search only
+uses the backward cost to determine priority.
+-----------------------------------------------------------------------------------
